@@ -1,0 +1,50 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: eureka
+  security:
+    user:
+      name: admin
+      password: admin
+  config:
+    import: optional:configserver:http://config-server:8888
+    activate:
+      on-profile:
+        - default
+  boot:
+    admin:
+      client:
+        url: http://monitor:9001/admin/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  file:
+    path: ./logs
+  level:
+    org:
+      springframework:
+        security: DEBUG
+    com:
+      netflix:
+        discovery: ERROR
+
+eureka:
+  instance:
+    hostname: registry
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone:  http://admin:admin@registry:9000/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
