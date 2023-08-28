@@ -9,7 +9,6 @@ spring:
       name: admin
       password: admin
   config:
-    import: optional:configserver:http://config-server:8888
     activate:
       on-profile:
         - default
